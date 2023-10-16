@@ -1,3 +1,75 @@
+## 本仓库与原仓库的区别
+
+[源仓库](https://github.com/tangramor/wx_jsapi_sign)
+
+本仓库相较于原仓库，添加了打包为 Docker 镜像的方式。
+
+### 获取
+
+从 Docker Hub 下载镜像:
+
+```bash
+docker pull dingjunyao/wx_jsapi_sign:latest
+```
+
+或者是从 GitHub Packages 下载镜像:
+
+```bash
+docker pull ghcr.io/dingjunyao/wx_jsapi_sign:latest
+```
+
+或者从源码构建:
+
+```bash
+docker build -t dingjunyao/wx_jsapi_sign:latest .
+```
+
+### 使用
+
+以下展示使用 Docker Hub 的镜像的示例。请将代码中的一些字符串替换为你自己的配置情况。
+
+以 docker 命令行方式运行:
+
+```bash
+docker run \
+    -d \
+    --name qexo \
+    -e COMPANY_NAME="Beijing Dream Castle Culture Co., Ltd" \
+    -e PROJECT_NAME=梦之城微信控制中心 \
+    -e SYSTEM_EMAIL=xxx@a-li.com.cn \
+    -e CRYPTO_KEY=k4yb0ardc4x \
+    -e LOCAL_SOURCE=dreamcastle \
+    -e APP_ID=wx9999999999 \
+    -e APP_SECRET=ad73709c6e0815c999999999999 \
+    -e WHITELIST=https://4ading.com,http://localhost:4000 \
+    --restart unless-stopped \
+    dingjunyao/wx_jsapi_sign:latest
+```
+
+以 Docker Compose 配置文件运行:
+
+```yaml
+version: "3.9"
+services:
+  wx_jsapi_sign:
+    container_name: wx_jsapi_sign
+    image: dingjunyao/wx_jsapi_sign:latest
+    ports:
+      - PORT:3000
+    environment:
+      - COMPANY_NAME="Beijing Dream Castle Culture Co., Ltd"
+      - PROJECT_NAME=梦之城微信控制中心
+      - SYSTEM_EMAIL=xxx@a-li.com.cn
+      - CRYPTO_KEY=k4yb0ardc4x
+      - LOCAL_SOURCE=dreamcastle
+      - APP_ID=wx9999999999
+      - APP_SECRET=ad73709c6e0815c999999999999
+      - WHITELIST=https://4ading.com,http://localhost:4000  # CORS, 留空允许全部
+    restart: unless-stopped
+```
+
+其中 `APP_ID` 和 `APP_SECRET` 根据你的实际情况修改。
+
 # wx_jsapi_sign
 The Nodejs server for manage Wechat (Wexin) access_token, jsapi ticket and signature generation. 用于管理微信JS API的access_token、ticket和根据参数生成签名
 

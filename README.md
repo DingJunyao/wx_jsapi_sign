@@ -34,6 +34,7 @@ docker build -t dingjunyao/wx_jsapi_sign:latest .
 docker run \
     -d \
     --name qexo \
+    --port PORT:3000 \
     -e COMPANY_NAME="Beijing Dream Castle Culture Co., Ltd" \
     -e PROJECT_NAME=梦之城微信控制中心 \
     -e SYSTEM_EMAIL=xxx@a-li.com.cn \
